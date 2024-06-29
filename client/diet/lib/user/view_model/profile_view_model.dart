@@ -16,25 +16,36 @@ final userProfileProvider = FutureProvider.family<UserProfile, String>((ref, use
   return userRepository.fetchUserProfile(userId);
 });
 
-class ProfileViewModel extends StateNotifier<UserProfile?> {
+class ProfileViewModel extends StateNotifier<AsyncValue<UserProfile>> {
   final String userId;
   final UserRepository userRepository;
 
-  ProfileViewModel({required this.userId, required this.userRepository}) : super(null);
+  ProfileViewModel({required this.userId, required this.userRepository})
+      : super(const AsyncValue.loading()) {
+    fetchUserProfile();
+  }
 
   Future<void> fetchUserProfile() async {
-    state = await userRepository.fetchUserProfile(userId);
+    try {
+      final userProfile = await userRepository.fetchUserProfile(userId);
+      print('User Profile fetched: ${userProfile.toJson()}'); // Logging the user profile
+      state = AsyncValue.data(userProfile);
+    } catch (e, stackTrace) {
+      print('Error fetching user profile: $e'); // Logging the error
+      state = AsyncValue.error(e, stackTrace);
+    }
   }
 
   double calculateBMI() {
-    if (state != null) {
-      return state!.weight / ((state!.height / 100) * (state!.height / 100));
+    final userProfile = state.value;
+    if (userProfile != null) {
+      return userProfile.weight / ((userProfile.height / 100) * (userProfile.height / 100));
     }
     return 0.0;
   }
 }
 
-final profileViewModelProvider = StateNotifierProvider.family<ProfileViewModel, UserProfile?, String>((ref, userId) {
+final profileViewModelProvider = StateNotifierProvider.family<ProfileViewModel, AsyncValue<UserProfile>, String>((ref, userId) {
   final userRepository = ref.read(userRepositoryProvider);
   return ProfileViewModel(userId: userId, userRepository: userRepository);
 });

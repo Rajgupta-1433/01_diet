@@ -50,7 +50,7 @@ class _UserMainPageState extends State<UserMainPage> {
       case 1:
         return DietPage();
       case 2:
-        return ProfilePage(userId: userId);
+        return ProfilePage(userId: "667fa63751f3b365972052b9");
       case 3:
         return BlogPage();
       default:

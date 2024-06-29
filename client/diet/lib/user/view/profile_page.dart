@@ -21,43 +21,78 @@ class ProfilePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userProfileAsyncValue = ref.watch(userProfileProvider(userId));
+    final userProfileAsyncValue = ref.watch(profileViewModelProvider(userId));
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile Page')),
+      appBar: AppBar(
+        title: const Text('Profile Page'),
+        centerTitle: false,
+        actions: [
+          Icon(Icons.edit),
+        ],
+        
+      ),
       body: userProfileAsyncValue.when(
         data: (userProfile) {
-          final bmi = userProfile.weight / ((userProfile.height / 100) * (userProfile.height / 100));
+          final bmi = userProfile.weight /
+              ((userProfile.height / 100) * (userProfile.height / 100));
 
-          return Center(
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Name: ${userProfile.name}'),
-                Text('Age: ${userProfile.age}'),
-                Text('Weight: ${userProfile.weight} kg'),
-                Text('Height: ${userProfile.height} cm'),
-                Text('Gender: ${userProfile.gender}'),
-                Text('BMI: ${bmi.toStringAsFixed(2)}'),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text('Name'),
+                  subtitle: Text(userProfile.userName),
+                ),
+                ListTile(
+                  leading: Icon(Icons.calendar_today),
+                  title: Text('Age'),
+                  subtitle: Text('${userProfile.age} years'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.monitor_weight),
+                  title: Text('Weight'),
+                  subtitle: Text('${userProfile.weight} kg'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.height),
+                  title: Text('Height'),
+                  subtitle: Text('${userProfile.height} cm'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.male),
+                  title: Text('Gender'),
+                  subtitle: Text(userProfile.gender),
+                ),
+                ListTile(
+                  leading: Icon(Icons.fitness_center),
+                  title: Text('BMI'),
+                  subtitle: Text(bmi.toStringAsFixed(2)),
+                ),
                 const SizedBox(height: 20),
-                CustomButton(
-                  text: 'Logout',
-                  onPressed: () => _logout(context),
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  borderRadius: 8.0,
+                Center(
+                  child: CustomButton(
+                    text: 'Logout',
+                    onPressed: () => _logout(context),
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    borderRadius: 8.0,
+                  ),
                 ),
               ],
             ),
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => const Center(child: Text('Failed to load profile')),
+        error: (err, stack) =>
+            Center(child: Text('Failed to load profile: $err')),
       ),
     );
   }
 }
-
 
 
 

@@ -5,9 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import '../data/models/user_new_model.dart';
-import '../data/repositories/user_repository.dart';
-// import 'user_main_page.dart';
+
 
 class SummaryPage extends ConsumerWidget {
   final User user;
@@ -75,7 +73,7 @@ class SummaryPage extends ConsumerWidget {
                   );
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Failed to add user diet detail')),
+                    SnackBar(content: Text('Failed to add user diet detail: ${e.toString()}')),
                   );
                 }
               },
@@ -87,83 +85,3 @@ class SummaryPage extends ConsumerWidget {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-
-// class SignupScreen extends StatefulWidget {
-//   const SignupScreen({super.key});
-
-//   @override
-//   _SignupScreenState createState() => _SignupScreenState();
-// }
-
-// class _SignupScreenState extends State<SignupScreen> {
-//   final TextEditingController emailController = TextEditingController();
-//   final TextEditingController passwordController = TextEditingController();
-//   bool loading = false;
-
-//   void signUp() async {
-//     setState(() {
-//       loading = true;
-//     });
-//     try {
-//       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-//         email: emailController.text,
-//         password: passwordController.text,
-//       );
-//       Navigator.pop(context); // Navigate back to login screen
-//     } on FirebaseAuthException catch (e) {
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(content: Text(e.message ?? 'An error occurred')),
-//       );
-//     } finally {
-//       setState(() {
-//         loading = false;
-//       });
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('User Sign Up'),
-//       ),
-//       body: Padding(
-//         padding: const EdgeInsets.all(16.0),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             TextField(
-//               controller: emailController,
-//               decoration: InputDecoration(labelText: 'Email'),
-//             ),
-//             TextField(
-//               controller: passwordController,
-//               decoration: InputDecoration(labelText: 'Password'),
-//               obscureText: true,
-//             ),
-//             SizedBox(height: 20),
-//             ElevatedButton(
-//               onPressed: signUp,
-//               child: loading ? CircularProgressIndicator(color: Colors.white) : Text('Sign Up'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }

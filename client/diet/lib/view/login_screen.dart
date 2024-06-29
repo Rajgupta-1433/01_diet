@@ -3,8 +3,7 @@ import 'package:diet/view/signupscreen.dart';
 import 'package:diet/view/user_main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'signup_screen.dart';
-// import 'user_main_page.dart';
+// import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

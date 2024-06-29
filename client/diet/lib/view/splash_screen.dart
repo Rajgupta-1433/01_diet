@@ -1,3 +1,83 @@
+// import 'package:diet/starting_pages/welcome_page.dart';
+// import 'package:diet/user/view/login_screen.dart';
+// import 'package:flutter/material.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// // import 'login_screen.dart';
+// // import 'welcome_page.dart';
+// import 'user_main_page.dart';
+
+// class SplashScreen extends StatefulWidget {
+//   const SplashScreen({Key? key}) : super(key: key);
+
+//   @override
+//   _SplashScreenState createState() => _SplashScreenState();
+// }
+
+// class _SplashScreenState extends State<SplashScreen> {
+//   @override
+//   void initState() {
+//     super.initState();
+//     _checkLoginStatus();
+//   }
+
+//   Future<void> _checkLoginStatus() async {
+//     User? user = FirebaseAuth.instance.currentUser;
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     String? userId = prefs.getString('user_id');
+
+//     if (user == null) {
+//       Navigator.pushReplacement(
+//         context,
+//         MaterialPageRoute(builder: (context) => LoginScreen()),
+//       );
+//     } else if (userId == null) {
+//       Navigator.pushReplacement(
+//         context,
+//         MaterialPageRoute(builder: (context) => WelcomePage(user: user)),
+//       );
+//     } else {
+//       Navigator.pushReplacement(
+//         context,
+//         MaterialPageRoute(builder: (context) => UserMainPage()),
+//       );
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: CircularProgressIndicator(),
+//       ),
+//     );
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import 'package:diet/view/admin_main_page.dart';
 import 'package:diet/view/role_selection.dart';
 import 'package:diet/view/user_main_page.dart';

@@ -36,6 +36,7 @@ def home():
     return jsonify(message="Connected to MongoDB"), 200
 
 # Create a new user diet detail
+# Create a new user diet detail
 @app.route('/api/user-diet-details', methods=['POST'])
 def add_user_diet_detail():
     data = request.json
@@ -48,10 +49,11 @@ def add_user_diet_detail():
 
     if user_name and age and weight and height and bmi and gender:
         new_user = User(user_name=user_name, age=age, weight=weight, height=height, bmi=bmi, gender=gender)
-        db.user_diet_details.insert_one(new_user.to_dict())
-        return jsonify(message='User diet detail added successfully'), 201
+        result = db.user_diet_details.insert_one(new_user.to_dict())
+        return jsonify(message='User diet detail added successfully', id=str(result.inserted_id)), 201
     else:
         return jsonify(message='Missing required fields'), 400
+
 
 # Get all user diet details
 @app.route('/api/user-diet-details', methods=['GET'])

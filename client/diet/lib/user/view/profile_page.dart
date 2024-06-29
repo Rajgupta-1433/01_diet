@@ -1,3 +1,4 @@
+import 'package:diet/user/view/edit_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -28,9 +29,18 @@ class ProfilePage extends ConsumerWidget {
         title: const Text('Profile Page'),
         centerTitle: false,
         actions: [
-          Icon(Icons.edit),
+          IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditProfilePage(userId: userId), // Navigate to EditProfilePage
+                ),
+              );
+            },
+          ),
         ],
-        
       ),
       body: userProfileAsyncValue.when(
         data: (userProfile) {

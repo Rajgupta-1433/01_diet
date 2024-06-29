@@ -1,8 +1,10 @@
-import 'package:diet/user/view/login_screen.dart';
 import 'package:diet/user/view/profile_page.dart';
-import 'package:diet/widgets/button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+// import 'home_page.dart';
+// import 'diet_page.dart';
+// import 'profile_page.dart';
+// import 'blog_page.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Import FirebaseAuth to get the current user's ID
 
 class UserMainPage extends StatefulWidget {
   @override
@@ -41,15 +43,16 @@ class _UserMainPageState extends State<UserMainPage> {
   }
 
   Widget _getPageForIndex(int index) {
+    final userId = FirebaseAuth.instance.currentUser?.uid ?? 'default_user_id'; // Replace 'default_user_id' with your logic to get userId
     switch (index) {
       case 0:
         return HomePage();
       case 1:
         return DietPage();
       case 2:
-        return BlogPage();
+        return ProfilePage(userId: userId);
       case 3:
-        return ProfilePage();
+        return BlogPage();
       default:
         return HomePage();
     }
@@ -75,12 +78,12 @@ class _UserMainPageState extends State<UserMainPage> {
             label: 'Diet',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.article),
-            label: 'Blog',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.article),
+            label: 'Blog',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -97,8 +100,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home Page')),
-      body: Center(
+      appBar: AppBar(title: const Text('Home Page')),
+      body: const Center(
         child: Text('Home Page Content'),
       ),
     );
@@ -109,9 +112,21 @@ class DietPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Diet Page')),
-      body: Center(
+      appBar: AppBar(title: const Text('Diet Page')),
+      body: const Center(
         child: Text('Diet Page Content'),
+      ),
+    );
+  }
+}
+
+class BlogPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Blog Page')),
+      body: const Center(
+        child: Text('Blog Page Content'),
       ),
     );
   }
@@ -167,17 +182,17 @@ class DietPage extends StatelessWidget {
 //   }
 // }
 
-class BlogPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Blog Page')),
-      body: Center(
-        child: Text('Blog Page Content'),
-      ),
-    );
-  }
-}
+// class BlogPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('Blog Page')),
+//       body: Center(
+//         child: Text('Blog Page Content'),
+//       ),
+//     );
+//   }
+// }
 
 
 
